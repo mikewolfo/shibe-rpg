@@ -9,6 +9,8 @@ public class PlayableCharacter implements Drawable{
     int PX_WIDTH = 32;
     int PX_HEIGHT = 24;
 
+    final int PLAYER_VELOCITY = 4;
+
     int xo = PX_WIDTH / 2;
     int yo = PX_HEIGHT / 2;
 
@@ -18,12 +20,20 @@ public class PlayableCharacter implements Drawable{
     int y = canvasHeight / 2;
 
 
+
+    //x and y velocities
     int xv = 0;
     int yv = 0;
 
     
     int trueX = x - xo; 
     int trueY = y - yo;
+
+
+    boolean up = false;
+    boolean down = false;
+    boolean left = false;
+    boolean right = false;
 
     public PlayableCharacter(){
         controller = new KeyAdapter() {
@@ -32,29 +42,29 @@ public class PlayableCharacter implements Drawable{
                 char key = e.getKeyChar();
                     
                 if(key == 'w')
-                    yv = -4;
+                    up = true;
                 if(key == 'a')
-                    xv = -4;
+                    left = true;
                 if(key == 's')
-                    yv = 4;
+                    down = true;
                 if(key == 'd')
-                    xv = 4;
+                    right = true;
                 
                 
             }
 
             @Override
             public void keyReleased(KeyEvent e){
-                switch(e.getKeyChar()){
-                    case 'w':
-                    case 's':
-                    yv = 0;
-                    break;
-                    case 'a':
-                    case 'd':
-                    xv = 0;
-                    break;
-                }
+                char key = e.getKeyChar();
+                    
+                if(key == 'w')
+                    up = false;
+                if(key == 'a')
+                    left = false;
+                if(key == 's')
+                    down = false;
+                if(key == 'd')
+                    right = false;
             }
         };
     }
